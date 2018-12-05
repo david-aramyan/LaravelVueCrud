@@ -31,6 +31,16 @@ class SectionController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('sections.edit');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  SectionStoreRequest  $request
@@ -60,7 +70,7 @@ class SectionController extends Controller
      */
     public function edit(Section $section)
     {
-        //
+        return view('sections.edit')->with($section);
     }
 
     /**
