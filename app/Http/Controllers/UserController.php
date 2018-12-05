@@ -91,6 +91,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        try {
+            $user->delete();
+        }catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+        return response()->json(['message' => 'OK'], Response::HTTP_OK);
     }
 }
