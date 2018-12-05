@@ -61,9 +61,9 @@
                 let conf = confirm("Do you really want to delete this user?");
 
                 if (conf === true) {
-                    axios.delete('/user/' + this.users[index].id)
+                    axios.delete('/user/' + this.users.data[index].id)
                         .then(response => {
-                            this.users.splice(index, 1);
+                            this.users.data.splice(index, 1);
                         })
                         .catch(error => {
                             //

@@ -66,9 +66,9 @@
                 let conf = confirm("Do you really want to delete this section?");
 
                 if (conf === true) {
-                    axios.delete('/section/' + this.sections[index].id)
+                    axios.delete('/section/' + this.sections.data[index].id)
                         .then(response => {
-                            this.sections.splice(index, 1);
+                            this.sections.data.splice(index, 1);
                         })
                         .catch(error => {
                             //
