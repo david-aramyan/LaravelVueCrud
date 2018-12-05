@@ -17,13 +17,13 @@
                             <strong>{{ section.name }}</strong>
                             <p>{{ section.description }}</p>
                         </td>
-                        <td>
+                        <td class="no-wrap">
                             <strong>Users</strong>
                             <ol v-if="section.users.length > 0">
                                 <li v-for="user in section.users">{{ user.name }}</li>
                             </ol>
                         </td>
-                        <td>
+                        <td class="no-wrap">
                             <a href="#" class="btn btn-secondary btn-sm" role="button">Edit</a>
                             <button @click="deleteSection(index)" class="btn btn-danger btn-sm">Delete</button>
                         </td>
@@ -85,3 +85,9 @@
         }
     }
 </script>
+
+<style scoped>
+    .no-wrap{
+        white-space: nowrap;
+    }
+</style>
