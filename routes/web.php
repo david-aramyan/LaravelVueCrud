@@ -19,7 +19,16 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('section', 'SectionController')->except(['show']);
     Route::get('getSections', 'SectionController@getSections');
+    Route::get('getSection/{id}', 'SectionController@getSection');
+
 
     Route::resource('user', 'UserController')->except(['show']);
+    Route::get('getAllUsers', 'UserController@getAllUsers');
     Route::get('getUsers', 'UserController@getUsers');
+    Route::get('getUser/{id}', 'UserController@getUser');
 });
+
+Route::get('/{locale}', function ($locale) {
+    Session::put('locale', $locale);
+    return redirect()->back();
+})->where('locale', '(en|ru)');;

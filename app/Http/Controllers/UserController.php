@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -13,11 +14,35 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getAllUsers()
+    {
+        $users = User::all();
+        return response()->json($users, Response::HTTP_OK);
+    }
+
+    /**
+     * Get the users from the database and paginate with 10 results each page.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getUsers()
     {
         $users = User::paginate(10);
         return response()->json($users, Response::HTTP_OK);
     }
+
+    /**
+     * Get the user data from the database.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getUser($id)
+    {
+        $user = User::findOrFail($id);
+        return response()->json($user, Response::HTTP_OK);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,23 +66,15 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
+        $input = $request->all();
+        $input['password'] = bcrypt($request->password);
+        User::create($input);
+        return view('users.index');
     }
 
     /**
@@ -68,19 +85,23 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit')->with($user);
+        return view('users.edit', ['user' => $user]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UserRequest  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        //
+        $input['name'] = $request->name;
+        $input['email'] = $request->email;
+        $input['password'] = bcrypt($request->password);
+        $user->update($input);
+        return view('users.index');
     }
 
     /**
@@ -91,11 +112,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        try {
-            $user->delete();
-        }catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        $user->delete();
         return response()->json(['message' => 'OK'], Response::HTTP_OK);
     }
 }

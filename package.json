@@ -21,6 +21,7 @@
         "vue-router": "^3.0.2"
     },
     "dependencies": {
-        "laravel-vue-pagination": "^2.2.0"
+        "laravel-vue-pagination": "^2.2.0",
+        "vue-i18n": "^8.4.0"
     }
 }

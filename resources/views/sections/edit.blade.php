@@ -1,7 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 12/5/2018
- * Time: 6:38 PM
- */
+@extends('layouts.app')
+
+@section('content')
+
+    <sections-form id="@if(!empty($section)){{$section->id}}@endif" error="@if(count($errors)>0){{true}}@else{{false}}@endif"></sections-form>
+
+@endsection

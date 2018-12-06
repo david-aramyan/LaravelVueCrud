@@ -2,8 +2,8 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h4 class="d-inline">Users</h4>
-                <a href="#" class="btn btn-primary float-right" style="padding:8px">Add</a>
+                <h4 class="d-inline">{{ $t('texts.Users') }}</h4>
+                <a href="/user/create" class="btn btn-primary float-right" style="padding:8px">{{ $t('texts.Add') }}</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -20,8 +20,8 @@
                             {{ user.created_at }}
                         </td>
                                             <td>
-                        <a href="#" class="btn btn-secondary btn-sm" role="button">Edit</a>
-                        <button @click="deleteUser(index)" class="btn btn-danger btn-sm">Delete</button>
+                        <a v-bind:href="'user/' + user.id + '/edit'" class="btn btn-secondary btn-sm" role="button">{{ $t('texts.Edit') }}</a>
+                        <button @click="deleteUser(index)" class="btn btn-danger btn-sm">{{ $t('texts.Delete') }}</button>
                                             </td>
 
                                         </tr>
@@ -58,7 +58,7 @@
         methods: {
             deleteUser(index)
             {
-                let conf = confirm("Do you really want to delete this user?");
+                let conf = confirm(this.$t('texts.Delete_Question'));
 
                 if (conf === true) {
                     axios.delete('/user/' + this.users.data[index].id)

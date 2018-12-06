@@ -6,6 +6,6 @@ $factory->define(App\Section::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->text,
-        'logo' => 'default-logo.png',
+        'logo' => 'logo/default-logo.png',
     ];
 });

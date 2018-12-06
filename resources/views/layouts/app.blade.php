@@ -9,6 +9,12 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script>
+      var Laravel = {
+        'csrfToken' : '{{csrf_token()}}'
+      };
+    </script>
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -23,9 +29,6 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,10 +38,10 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link {{ Request::is('user') ? 'active' : null }}" href="/user">{{ __('Users') }}</a>
+                                <a class="nav-link {{ Request::is('user') ? 'active' : null }}" href="/user">{{ __('texts.Users') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ Request::is('section') ? 'active' : null }}" href="/section">{{ __('Sections') }}</a>
+                                <a class="nav-link {{ Request::is('section') ? 'active' : null }}" href="/section">{{ __('texts.Sections') }}</a>
                             </li>
                         @endauth
                     </ul>
@@ -56,6 +59,18 @@
                                 @endif
                             </li>
                         @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ app()->getLocale() }} <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if(app()->getLocale() == 'ru')
+                                        <a class="dropdown-item" href="/en">en</a>
+                                    @else
+                                        <a class="dropdown-item" href="/ru">ru</a>
+                                    @endif
+                                </div>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

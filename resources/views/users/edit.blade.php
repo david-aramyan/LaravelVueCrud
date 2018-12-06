@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <usersform></usersform>
+    <users-form id="@if(!empty($user)){{$user->id}}@endif" error="@if(count($errors)>0){{true}}@else{{false}}@endif"></users-form>
 
 @endsection
